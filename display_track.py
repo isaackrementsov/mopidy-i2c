@@ -12,8 +12,8 @@ async def main():
         while(True):
             sleep(0.2)
     except Exception:
-      	  print('Exiting...')
-	  pass
+        print('Exiting...')
+        pass
 
     await mopidy.disconnect()
 
