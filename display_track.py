@@ -1,20 +1,25 @@
 import asyncio
+
 from mopidy_async_client import MopidyClient
 
-def print_track(data):
-    print('Title changed', data)
+
+async def display_track(data):
+    tltrack = data['tl_track']
+    track = tltrack.track
+    print('Name:', track.name)
+    print('Artists:', ', '.join([a.name for a in track.artists]))
 
 async def main():
-    mopidy = await MopidyClient().connect()
-    mopidy.listener.bind('track_playback_started', print_track)
+    mopidy = await MopidyClient(parse_results=True).connect()
+    mopidy.listener.bind('track_playback_started', display_track)
 
     try:
-        while(True):
-            sleep(0.2)
+        while True:
+            await asyncio.sleep(0.2)
     except Exception:
-        print('Exiting...')
         pass
 
     await mopidy.disconnect()
 
-main()
+
+asyncio.run(main())
