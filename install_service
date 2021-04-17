@@ -1,0 +1,7 @@
+#! /bin/bash
+# Script to enable mopidy-i2c service
+
+mv mopidy-i2c.service /lib/systemd/system/
+systemctl daemon-reload
+systemctl enable mopidy-i2c
+systemctl start mopidy-i2c
